@@ -221,9 +221,10 @@
     let hostMode = false;
 
     db.ref('answers').on('value', snap => {
-      answers = snap.val() || [];
-      renderAnswers();
-    });
+  answers = snap.val() || [];
+  renderAnswers();
+});
+
 
     db.ref('question').on('value', snap => {
       currentQuestion = snap.val() || currentQuestion;
@@ -312,3 +313,4 @@
   </script>
 </body>
 </html>
+
