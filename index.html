@@ -220,7 +220,7 @@
     let currentQuestion = "What is the most interesting question to discuss this week?";
     let hostMode = false;
 
-    db.ref('answers').on('value', snap => {
+   db.ref('answers').on('value', snap => {
   answers = snap.val() || [];
   renderAnswers();
 });
@@ -243,11 +243,17 @@
       document.getElementById('edit-question-btn').hidden = !hostMode;
       document.getElementById('host-login-btn').hidden = hostMode;
     }
-    function renderAnswers() {
-      const sect = document.getElementById('answers-section');
-      sect.innerHTML = "";
-      answers.forEach((ans,idx) => {
-        const tpl = document.getElementById('answer-template').content.cloneNode(true);
+ function renderAnswers() {
+  const sect = document.getElementById('answers-section');
+  sect.innerHTML = '';
+  answers.forEach((ans, idx) => {
+    const tpl = document.getElementById('answer-template').content.cloneNode(true);
+    tpl.querySelector('.answer-text').textContent = ans.text;
+    // комментарии и остальное...
+    sect.appendChild(tpl);
+  });
+}
+
         tpl.querySelector('.answer-text').textContent = ans.text;
         tpl.querySelector('.reply-btn').onclick = () => startReply(idx);
         const commDiv = tpl.querySelector('.comments');
@@ -313,4 +319,5 @@
   </script>
 </body>
 </html>
+
 
